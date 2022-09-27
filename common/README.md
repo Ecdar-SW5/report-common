@@ -57,6 +57,14 @@ And finally,
 git push origin
 ```
 
+### When you want to update the common folder in your project
+it is very simple:
+``` bash
+git fetch common
+git pull --no-rebase
+git merge common/main
+```
+
 ### Why don't I just download the source files off GitHub and include them manually?
 
 Because then you won't be able to just write git pull and update all of the collaborative sections automatically, silly 🤪
