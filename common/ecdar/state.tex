@@ -1,4 +1,4 @@
-\subsection{The Current State of ECDAR}\label{sub:the-current-state-of-ecdar} %This was written quite fastly ;)
+\subsection{Overview of ECDAR}\label{sub:the-current-state-of-ecdar} 
 This section will go over the ECDAR tool, to further illustrate the intent of ECDAR and how far it has been developed. The GUI of ECDAR 2.3.3 can be seen in \autoref{fig:ECDAR-gui}.
 
 The GUI is split up into three vertical panes, as seen in \autoref{fig:ECDAR-gui}. The different components in the project are listed in the project pane to the left, the currently selected component is shown in the editor pane in the middle, and the queries are found in the query pane to the right.
@@ -39,25 +39,17 @@ An example of an invariant can be seen in \autoref{fig:ECDAR-guard} as a text bo
 
 
 \subsubsection{Query Pane}
-The query pane has a top bar in which a query can be added using the plus symbol and by clicking the play symbol all queries can be run at the same time. Additionally, the icon next to the play icon will clear all queries. Queries are the operations that can be performed on the components. There are different types of queries and these can be seen in \autoref{tab:querytypes}. 
+The query pane has a top bar in which a query can be added using the plus symbol and by clicking the play symbol all queries can be run at the same time. Additionally, the icon next to the play icon will clear all queries. Queries are the operations that can be performed on the components. There are different types of queries and these can be seen in \autoref{fig:ECDAR-query-types}. 
 
-\begin{table}[H]
-\begin{tabular}{ll}
-\textbf{Query Type} & \textbf{Description} \\
-reachability [E$<>$]     & x                    \\
-refinement [$\leq$]      & x                    \\
-quotient [\textbackslash]& x                    \\
-specification [Spec]     & x                    \\
-implementation [Imp]     & x                    \\
-consistency [lCon]       & x                    \\
-global-consistency [gCon]& x                    \\
-bisim [bsim]             & x                    \\
-get-component [get]      & x                    \\
-\end{tabular}
-\caption{\label{tab:querytypes}Table describing the different query types. The functionality of every query type is currently not implemented.}
-\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\textwidth]{common/figures/check-type.jpg}
+    \caption{A screenshot of the drop-down menu with the query types.}
+    \label{fig:ECDAR-query-types}
+\end{figure}
 
-Below the top bar in the query pane all the added queries can be seen. A query consists of a query request specified in the text-field, a query type chosen using the drop-down underneath the icon, and a backend engine. 
+
+All the added queries can be seen below the top bar in the query pane. A query consists of a query request specified in the text-field, a query type chosen using the drop-down underneath the icon, and a backend engine. 
 Queries are sent to one of the two engines, which can be selected in the drop-down menu to the right of a query. 
 \begin{figure}[H]
     \centering
@@ -72,20 +64,9 @@ A run of a query can result in one of three things: A green box that indicates a
 
 \autoref{fig:ECDAR-queries-panel} shows five different queries. 
 The result of the first query in the query pane is an error, which means the engine could not perform the query. 
-An error message can be read by placing the mouse over the icon, which can be used to troubleshoot why this error occurred.
-The "Machine$<=$Spec" query was performed, but the result was unsuccessful, which means the \texttt{Machine} specification did not refine the \texttt{Spec} specification.
-The three remaining queries were all successful and without errors.
-The text boxes use a special syntax to specify a combination of models, operators, and specifications to be checked.
+Underneath this query, the "Machine$<=$Spec" query is performed. The result of this query is unsuccessful.
+The three remaining queries are all successful and without errors.
+Further information about the results of the queries can be read by hovering the mouse over the colored icons.
 
-
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.25\textwidth]{common/figures/check-type.jpg}
-%    \caption{A screenshot of drop-down menu with the query types.}
-%    \label{fig:ECDAR-query-types}
-%\end{figure}
-
-%The type of the query to be performed is chosen in the drop-down menu underneath the icons. 
-%The drop-down menu with the types of queries that can be chosen, can be seen in \autoref{fig:ECDAR-query-types}.
 
 
