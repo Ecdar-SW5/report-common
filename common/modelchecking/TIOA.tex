@@ -1,0 +1,97 @@
+%\section{Timed Input Output Automata}
+%This section will describe the basics of Timed Input Output Automata that are used in this report. This is by no means a comprehensive explanation, but serves simply to explain the terminology used and the concepts relevant for this report. 
+%ECDAR is based on Timed Input/Output Automata (TIOA), as is also described in  \missingref{fællesafsnit}. TIOA describe Timed Input/Output Transition Systems (TIOTS). The basic principles for understanding most of this report will be explained in this sub-chapter, however for more information, refer to \say{Timed I/O Automata: It is never too late to complete your timed specification theory} \todo[author=Christian, fancyline]{Remember to update the paper when out} paper \cite{nyman_timed_2022} and \say{A theory of timed automata}\cite{alur_theory_1994}.
+
+
+%\subsection{Parts of a TIOA}
+%A TIOA consists of several parts, locations, actions, clocks, edges, guards and invariants. It is also important to understand what a state of a TIOA consists of. \todo[author=Mads]{Clocks first mentioned here, but is not explained}
+
+%ECDAR also allows combining different TIOA with different operations. How this is done is out of scope for this, as these simply result in new TIOA. It is however important for this project that the TIOA can be checked either individually, or after being combined.
+
+%\subsubsection{State}\label{introduction:TIOA/Parts-of-a-TIOA/State}
+%The state of a TIOA is described by its current location and clocks.
+
+%The TIOA can change location through edges, and change the clocks by either resetting them or delaying. Delaying increases the value of all clocks by some time value.
+
+%\subsubsection{Edges}
+%Edges describe how the TIOA can change state, which means they can both change location and the value of clocks.
+
+%The value of all clocks can be changed using delay transitions. Delay transitions simply increase the value of all clocks by the value given by the transition. From any state, a delay transition can be taken only if it satisfies the invariant of the current location \cite{goorden_specification_2022}.
+
+%An invariant restricts what values of clocks are allowed in a given location. An example of an invariant could be $c \leq 8$, which means it is not allowed to take a transition that would put the automaton in a state with that location if the clock c is higher than 8.
+
+%An edge can also lead to another location, in this case the edge will have a guard that also limits the transition. Similar to invariants, these will limit what values of clocks are allowed when taking the transition \cite{goorden_specification_2022}.
+
+%Edges can also set the value of any amount of clocks to any natural number in ECDAR.
+
+%Finally edges can also have an action. An action is either an input or output action. An input action means that the automaton must take the action as input from another automaton in order to follow the edge, and an output action will give the action as input to other automata. This allows the different automata to affect each other \cite{goorden_specification_2022}. 
+
+%\subsubsection{Use of Zones in ECDAR}
+%In practice, TIOA can lead to state explosion. A naïve use of TIOA will quickly lead to infinite states, as clocks can have infinitely many values, and as such there will be infinitely many states. \todo[author=Mads]{States first mentioned here, but is not explained}
+%For this reason ECDAR makes use of zones, and instead of storing all the clock values as different states, they are combined into zones. This means that the states instead define what ranges the clocks are in, instead of storing all infinite possible values. This is already implemented in ECDAR, so it is out of scope to describe how this is done, but it is important to make use of this. 
+%In short, zones are defined by the clocks and the constraints on those clocks. Clock values are within this zone if the values meet these constraints.
+%You can also use various operations on zones, for example intersecting them, and checking if they are superset or subset of eachother.
+
+\subsection{Timed Input/Output Automata}\label{sec:TIOA}
+\commondisclaimer
+
+\emph{Timed Input/Output Automata}, abbreviated TIOA, are basic automata with two extensions \cite{ecdartheory}. One of them is the notion of time. Time is tracked using clock variables, which can be used to make constraints in the system on its locations or edges. The second is having actions classified as input or output actions. Input actions are triggered from the outside, and output actions are triggered from within the automaton. 
+
+The formal definition of a TIOA is a tuple \cite{ecdartheory} $(Loc, I_{0}, Act, Clk, E, Inv)$
+where
+
+\begin{itemize}
+    \item $Loc$ is a finite set of locations,
+    \item $(I_{0})$ is the initial location, so $I_{0} \in Loc$,
+    \item $Act$ is a finite set of actions partitioned into inputs ($Act_{i}$) and outputs ($Act_{o}$),
+    \item $Clk$ is a finite set of clocks,
+    \item $E \subseteq Loc \times Act \times \mathcal{B}(Clk) \times \mathcal{P}(Clk) \times Loc$ is a set of edges, where $\mathcal{B}(Clk)$ is the set of guards over the operations in the set $\{<, \leq, >, \geq\}$ and $\mathcal{P}(Clk)$ is the powerset of $Clk$,
+    \item $Inv : Loc \mapsto \mathcal{B}(Clk)$ is a location invariant function.
+\end{itemize}
+
+%DBM / Guards and invariants
+\subsection{Difference Bound Matrices}\label{sec:DBM}
+In a TIOA it is crucial to keep track on the clocks and their guards and invariants. This can be done by using \emph{Difference Bound Matrices} (abbreviated to DBM). This is the method Reveaal uses.
+A DBM is used to represent \emph{zones}: convex spaces where a clock-invariant evaluates to true. The size of a DBM is $n+1 \times n+1$ where $n$ is the number of clocks in the model.
+Each entry in a DBM is the a tuple $(a, \prec)$ where $a \in \mathbb{R} \cup \{ -\infty, \infty \}$ and $\prec \in \hspace{-3pt} \{<, \leq\}$ \cite{peron:hal-00189821, Joost:DBM19}. In the tuple $(a, \prec)$, $a$ is a constant of the bound and $\prec$ indicates the strictness of the bound.
+Given a DBM and entries row $i$ column $j$, the invariant can be interpreted as a logical conjunction of all entries $c_i - c_j \prec a$. 
+
+In ~Equation \ref{eq:con}~ we see an example of a constraint; the equivalent DBM can be seen in ~Equation \ref{eq:DBM_ex}~ and the visualisation in ~Figure \ref{fig:DBM_ex}~.
+\begin{equation}\label{eq:con}
+    x \geq 2 \wedge x \leq 6 \wedge y \geq 1 \wedge y \leq 5 \wedge x \leq y + 3 \wedge y \leq x + 1
+\end{equation}
+\begin{equation}\label{eq:DBM_ex}
+    M = 
+    \begin{bmatrix}
+                 &&    x    &    y\\
+          & (0, \leq) & (-2, \leq) & (-1, \leq)\\
+        x & (6, \leq) & (0, \leq) & (3, \leq)\\
+        y & (5, \leq) & (1, \leq) & (0, \leq) 
+    \end{bmatrix}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \coordSys{6}{5}
+        \ourDBM
+    \end{tikzpicture}
+    \caption{A visualisation of DBM $M$ with two clocks $x$ and $y$}
+    \label{fig:DBM_ex}
+\end{figure}
+
+One might notice that one DBM can only represent one guard/invariant, but in a large system with multiple edges and locations we need several (note that one invariant can contain multiple clock expresstions using conjunction and disjunction). This is done by using \emph{Federations}, which is a collection of DBMs, capable of performing special operations on the DBMs such as finding the union of two DBMs, which corresponds to where one of both invariants evaluate to true. Federations can also be viewed as a union of zones \cite{ecdartheory, Rokicki_DBM}.
+
+\subsection{Timed Input/Output Transition System}\label{sec:TIOTS}
+
+\emph{Timed Input/Output Transition System}, TIOTS, is the semantic representation of TIOA and is used to analyze TIOAs. TIOA are finite representations of TIOTS \cite{ecdartheory}. A TIOTS is a tuple \cite{ecdartheory}  $(Q, q_{0}, Act, \rightarrow)$ where
+
+\begin{itemize}
+    \item $Q$ is a possibly infinite set of states,
+    \item $q_{0}$ is the initial location, so $q_{0} \in Q$,
+    \item $Act$ is a finite set of actions partitioned into inputs ($Act_{i}$) and outputs ($Act_{o}$),
+    \item $\rightarrow \subseteq Q \times (Act \cup \mathbb{R}_{\geq 0}) \times Q$ is a transition relation.
+\end{itemize}
+
+\subsubsection{Specification}
+A TIOTS is a specification if all of its states are input-enabled. So, $\forall i? \in Act_i : \exists q' \in Q$ such that $q \xrightarrow{i?} q'$, which means that each state in a TIOA should be able to receive an input at any time \cite{ecdartheory}.
