@@ -1,0 +1,25 @@
+\subsection{The Different Query Types in ECDAR}
+In ECDAR there are currently three different query types for model checking, these three query types are \say{Consistency}, \say{Determinism} and \say{Refinement}. 
+These query types can check for certain things on a system, either consisting of one component or a combined component. The combined component can be made with the different operations explained in \autoref{RevaeelOperations}. The three query types will be explained further in the following sections.
+
+\subsubsection*{Consistency} \label{The-Different-Query-Types-In-Ecdar:Consistency}
+A consistency query checks whether a system is consistent. 
+This means that there are no states in the system that can prevent the system from producing an output, meaning that it is impossible to get stuck in a consistent system.
+This also means that systems with an inconsistent state are inconsistent systems \cite{ecdartheory}.
+
+
+\subsubsection*{Determinism} \label{The-Different-Query-Types-In-Ecdar:Determinism}
+A determinism query checks whether a system is deterministic. 
+This means that if you are in a specific state in the TIOA and a specific action is performed on the system, the next transition is known and only one possible transition can be made from that \cite{ecdartheory}.
+
+
+\subsubsection*{Refinement} \label{The-Different-Query-Types-In-Ecdar:Refinement}
+A refinement query can match different specifications and replace specifications implemented by components. 
+A specification S1 can be replaced by a specification S2, if S2 can satisfy the same system in every environment. 
+If it is the case that S2 can replace S1, then it means that S2 refines S1.
+A refinement check like this would be formally written as \say{C1 || C2 <= S}, where C1 and C2 are components that the composition operator combines, and S is a specific specification \cite{ecdartheory}.
+
+%A refinement query checks whether composite components match a specification. 
+%It does this by looking at the inputs and outputs of the composite components and the specification. 
+%It matches and passes the check if and only if every input and output in the composite component is present in the specification.
+%But the specification can have other inputs and outputs that the composite component does not have.
