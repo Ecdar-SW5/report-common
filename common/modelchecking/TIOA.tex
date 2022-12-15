@@ -87,7 +87,7 @@ One might notice that one DBM can only represent one guard/invariant, but in a l
 \emph{Timed Input/Output Transition System}, TIOTS, is the semantic representation of TIOA and is used to analyze TIOAs. TIOA are finite representations of TIOTS \cite{ecdartheory}. A TIOTS is a tuple \cite{ecdartheory}  $(Q, q_{0}, Act, \rightarrow)$ where
 
 \begin{itemize}
-    \item $Q$ is a possibly infinite set of states,
+    \item $Q$ is a possibly infinite set of states. A state is a location and the values of the clocks \cite{martijn},
     \item $q_{0}$ is the initial location, so $q_{0} \in Q$,
     \item $Act$ is a finite set of actions partitioned into inputs ($Act_{i}$) and outputs ($Act_{o}$),
     \item $\rightarrow \subseteq Q \times (Act \cup \mathbb{R}_{\geq 0}) \times Q$ is a transition relation.

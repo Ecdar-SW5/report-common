@@ -1,5 +1,5 @@
 \subsection{Architecture}\label{sub:architecture}
-ECDAR consists of four major systems as seen in \autoref{fig:ECDAR-architecture}.
+ECDAR consists of four major parts as seen in \autoref{fig:ECDAR-architecture}.
 There are the two engines, Reveaal and j-Ecdar, as well as the ECDAR GUI, and a test framework as seen in \autoref{fig:ECDAR-architecture}. 
 The GUI and the engines communicate through Protocol Buffers (Protobuf) and gRPC (\textbf{G}oogle \textbf{R}emote \textbf{P}rocedure \textbf{C}all) indicated by the arrows.
 \begin{figure}[H]
@@ -17,7 +17,7 @@ The gRPC and Protobuf frameworks have the advantage of being cross platform and 
 ECDAR runs on two verification engines: j-Ecdar and Reveaal. 
 The purpose of having two different engines is to make the whole platform more reliable. 
 With two engines, their results can be compared which will help ensure correctness in both engines.
-The j-Ecdar component is an engine written in Java.
+j-Ecdar is an engine written in Java.
 The main priorities for this engine are readability and correctness, and, as stated on ECDAR's homepage: ``no effort is put into optimizing the code for speed" \cite{ECDARNET}.
 It should be noted here that j-Ecdar will not be worked on this year, as all focus is allotted to the Reveaal engine.
 In contrast to j-Ecdar, the Reveaal engine is intended to be fast and parallelizable. 
