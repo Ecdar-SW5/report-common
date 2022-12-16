@@ -1,13 +1,14 @@
 \subsection{The Different Operations in Ecdar} \label{RevaeelOperations}
-In Ecdar there are 3 different operations for making combined components, these 3 operations are \say{Conjunction}, \say{Composition}, and \say{Quotient}, which will be explained further in the following sections.
+In ECDAR there are 3 different operations for combining components, where a component is an automaton \cite{ecdartheory}, these 3 operations are \say{Conjunction}, \say{Composition}, and \say{Quotient}, which will be explained further in the following sections.
 
 \subsubsection*{Conjunction} \label{The-Different-Operations-In-Ecdar:Conjunction}
-The conjunction operator combines two or more specifications of the same component together, into one component, or part of a bigger component. 
-For example, if you have two specifications S1 and S2 of the component C1, then you can combine S1 and S2 with the conjunction operator, which looks like this: \say{S1 && S2} \cite{goorden_specification_2022}.
-
+The conjunction operator combines two or more specifications, of the same component together, into one component, or part of a bigger component. 
+Where a specification is a \say{description} of what a component should be able to do \cite{ecdartheory}.
+For example, if you have two specifications S1 and S2 of the component C1, then you can combine S1 and S2 with the conjunction operator, which looks like this: \say{S1 \&\& S2} \cite{goorden_specification_2022}.
+ 
 \subsubsection*{Composition} \label{The-Different-Operations-In-Ecdar:Composition}
-The composition operator combines two or more specifications of different components together, into a system, or part of a bigger system. 
+The composition operator combines two or more specifications of different components together, into a system, or part of a bigger system.
 For example, if you have two specifications S1 and S2 of components C1 and C2, then you can combine S1 and S2 with the composition operator, which looks like this \say{S1 || S2} \cite{goorden_specification_2022}.
 
 \subsubsection*{Quotient} \label{The-Different-Operations-In-Ecdar:Quotient}
-The quotient operator can calculate the missing component(s) of a system, given the other components that make up a sub-part of the system and a system specification. For example, if you have two components C1 and C2, and it should result in a system specification S, then you would write \say{C1 || C2 \\\\ S}, which would yield a component or what behavior there is still missing, to refine a system S \cite{goorden_specification_2022}.
+The quotient operator can calculate the missing component(s) of a system, given the other components that make up a sub-part of the system and a system specification. For example, if you have two components C1 and C2, and it should result in a system specification S, then you would write \say{C1 || C2 \textbackslash\textbackslash S}, which would yield a component or what behavior there is still missing, to refine a system S \cite{goorden_specification_2022}.
